@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МобиСим - Быстрая и надежная связь</title>
+    <!-- Подключаем Tailwind CSS для стилизации -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключаем иконки Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Подключаем шрифты Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Стили для плавного появления модального окна */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
+        .modal-exit {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Навигация -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Логотип -->
+                <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="bg-blue-600 p-2 rounded-lg text-white">
+                        <i data-lucide="radio-tower"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-blue-900">МобиСим</span>
+                </div>
+                
+                <!-- Меню (десктоп) -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-slate-600 hover:text-blue-600 font-medium transition">Преимущества</a>
+                    <a href="#tariffs" class="text-slate-600 hover:text-blue-600 font-medium transition">Тарифы</a>
+                    <a href="#contact" class="text-slate-600 hover:text-blue-600 font-medium transition">Контакты</a>
+                </nav>
+
+                <!-- Кнопка действия -->
+                <div class="hidden md:block">
+                    <a href="#tariffs" class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition shadow-md hover:shadow-lg">
+                        Заказать SIM
+                    </a>
+                </div>
+
+                <!-- Мобильное меню (кнопка) -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-slate-600 hover:text-blue-600">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный экран (Hero) -->
+    <main class="flex-grow">
+        <section class="relative bg-blue-900 overflow-hidden">
+            <div class="absolute inset-0">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-700 mix-blend-multiply"></div>
+                <!-- Декоративный паттерн -->
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-blue-500 opacity-20 blur-3xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-purple-500 opacity-20 blur-3xl"></div>
+            </div>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 text-center md:text-left z-10 text-white">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Связь без границ <br> <span class="text-blue-300">для ваших побед</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-blue-100 mb-8 max-w-lg mx-auto md:mx-0">
+                        Закажите SIM-карту нового поколения с бесплатной доставкой уже сегодня. Честные гигабайты, прозрачные условия.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#tariffs" class="bg-white text-blue-900 px-8 py-3 rounded-full font-bold text-lg hover:bg-blue-50 transition shadow-lg flex items-center justify-center gap-2">
+                            Выбрать тариф <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 mt-16 md:mt-0 z-10 flex justify-center">
+                    <!-- Иллюстрация SIM-карты с помощью CSS/HTML -->
+                    <div class="relative w-48 h-72 md:w-64 md:h-96 bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-slate-200 transform rotate-6 hover:rotate-0 transition duration-500">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-slate-200" style="clip-path: polygon(100% 0, 0 0, 100% 100%);"></div>
+                        <div class="p-6 md:p-8 flex flex-col h-full justify-between relative">
+                            <div class="text-blue-600 font-bold text-xl md:text-2xl flex items-center gap-2">
+                                <i data-lucide="radio-tower"></i> МобиСим
+                            </div>
+                            <!-- Чип SIM-карты -->
+                            <div class="w-16 h-20 md:w-20 md:h-24 bg-yellow-400 rounded-lg border-2 border-yellow-500 mx-auto my-auto relative grid grid-cols-2 gap-1 p-1">
+                                <div class="border border-yellow-500/50 rounded-sm"></div>
+                                <div class="border border-yellow-500/50 rounded-sm"></div>
+                                <div class="border border-yellow-500/50 rounded-sm"></div>
+                                <div class="border border-yellow-500/50 rounded-sm"></div>
+                                <div class="border border-yellow-500/50 rounded-sm col-span-2"></div>
+                            </div>
+                            <div class="text-center text-slate-400 font-mono text-sm md:text-base">
+                                8970 1234 5678 9012
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Преимущества -->
+        <section id="features" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-slate-900">Почему выбирают нас?</h2>
+                    <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Мы переосмыслили мобильную связь, чтобы сделать её удобной, честной и современной.</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-10">
+                    <!-- Преимущество 1 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 text-center hover:shadow-lg transition border border-slate-100">
+                        <div class="w-16 h-16 mx-auto bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="zap" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Быстрый интернет</h3>
+                        <p class="text-slate-600">Поддержка сетей 4G и 5G во всех регионах страны. Смотрите видео в 4K без зависаний.</p>
+                    </div>
+                    
+                    <!-- Преимущество 2 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 text-center hover:shadow-lg transition border border-slate-100">
+                        <div class="w-16 h-16 mx-auto bg-green-100 text-green-600 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Никаких скрытых услуг</h3>
+                        <p class="text-slate-600">Мы не подключаем платные подписки без вашего ведома. Честный баланс всегда на виду.</p>
+                    </div>
+                    
+                    <!-- Преимущество 3 -->
+                    <div class="bg-slate-50 rounded-2xl p-8 text-center hover:shadow-lg transition border border-slate-100">
+                        <div class="w-16 h-16 mx-auto bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="truck" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Бесплатная доставка</h3>
+                        <p class="text-slate-600">Курьер привезет SIM-карту прямо домой или в офис в удобное для вас время совершенно бесплатно.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Тарифы -->
+        <section id="tariffs" class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-slate-900">Выбери свой идеальный тариф</h2>
+                    <p class="mt-4 text-slate-600 max-w-2xl mx-auto mb-6">Настройте связь под свои потребности. Переход со своим номером — бесплатно.</p>
+                    
+                    <!-- Кнопка вызова ИИ-помощника -->
+                    <button onclick="openAiModal()" class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-full font-bold shadow-lg transition transform hover:scale-105 flex items-center gap-2 mx-auto">
+                        <span>Подобрать тариф с ИИ</span>
+                        <span class="text-xl">✨</span>
+                    </button>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    
+                    <!-- Тариф: Лайт -->
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
+                        <div class="p-8 pb-0">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2">Лайт</h3>
+                            <p class="text-slate-500 mb-6">Для тех, кто больше пишет, чем звонит.</p>
+                            <div class="flex items-baseline mb-6">
+                                <span class="text-5xl font-extrabold text-slate-900">300</span>
+                                <span class="text-xl text-slate-500 ml-2">₽/мес</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex-grow">
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="wifi" class="text-blue-500 w-5 h-5"></i>
+                                    <span class="font-semibold">10 ГБ</span> интернета
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="phone-call" class="text-blue-500 w-5 h-5"></i>
+                                    <span class="font-semibold">300</span> минут звонков
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="message-square" class="text-slate-400 w-5 h-5"></i>
+                                    <span>50 SMS</span>
+                                </li>
+                            </ul>
+                            <button onclick="openModal('Лайт', '300 ₽')" class="w-full py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl transition mt-auto">
+                                Подключить
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Тариф: Оптима (Популярный) -->
+                    <div class="bg-blue-600 rounded-3xl shadow-xl overflow-hidden flex flex-col transform md:-translate-y-4 relative">
+                        <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Хит продаж</div>
+                        <div class="p-8 pb-0">
+                            <h3 class="text-2xl font-bold text-white mb-2">Оптима</h3>
+                            <p class="text-blue-200 mb-6">Золотая середина для активных пользователей.</p>
+                            <div class="flex items-baseline mb-6">
+                                <span class="text-5xl font-extrabold text-white">500</span>
+                                <span class="text-xl text-blue-200 ml-2">₽/мес</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex-grow">
+                            <ul class="space-y-4 mb-8 text-white">
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="wifi" class="text-blue-300 w-5 h-5"></i>
+                                    <span class="font-semibold text-xl">35 ГБ</span> интернета
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="phone-call" class="text-blue-300 w-5 h-5"></i>
+                                    <span class="font-semibold text-xl">600</span> минут звонков
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="message-square" class="text-blue-300 w-5 h-5"></i>
+                                    <span>Безлимитные мессенджеры</span>
+                                </li>
+                            </ul>
+                            <button onclick="openModal('Оптима', '500 ₽')" class="w-full py-3 px-4 bg-white hover:bg-slate-100 text-blue-600 font-bold rounded-xl transition shadow-md mt-auto">
+                                Подключить
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Тариф: Ультра -->
+                    <div class="bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-xl transition-shadow">
+                        <div class="p-8 pb-0">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2">Ультра</h3>
+                            <p class="text-slate-500 mb-6">Никаких ограничений для тех, кто всегда в сети.</p>
+                            <div class="flex items-baseline mb-6">
+                                <span class="text-5xl font-extrabold text-slate-900">950</span>
+                                <span class="text-xl text-slate-500 ml-2">₽/мес</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex-grow">
+                            <ul class="space-y-4 mb-8">
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="infinity" class="text-blue-500 w-5 h-5"></i>
+                                    <span class="font-semibold text-purple-600">Безлимитный</span> интернет
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="phone-call" class="text-blue-500 w-5 h-5"></i>
+                                    <span class="font-semibold">1500</span> минут звонков
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <i data-lucide="film" class="text-slate-400 w-5 h-5"></i>
+                                    <span>Подписка на кинотеатр</span>
+                                </li>
+                            </ul>
+                            <button onclick="openModal('Ультра', '950 ₽')" class="w-full py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl transition mt-auto">
+                                Подключить
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Информационный блок -->
+        <section class="py-16 bg-blue-50 border-t border-b border-blue-100">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <i data-lucide="smartphone" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Уже есть красивый номер?</h2>
+                <p class="text-slate-600 mb-8">Переходите к нам со своим номером. Это бесплатно, занимает минимум времени, а еще мы подарим вам скидку 30% на абонентскую плату в первые 3 месяца!</p>
+                <button onclick="openModal('Перенос номера', 'Бесплатно')" class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-full font-bold transition">
+                    Перенести свой номер
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Подвал (Footer) -->
+    <footer id="contact" class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="bg-blue-600 p-1.5 rounded-md text-white">
+                        <i data-lucide="radio-tower" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-white">МобиСим</span>
+                </div>
+                <p class="mb-4 text-sm max-w-sm">
+                    Инновационный оператор мобильной связи. Мы делаем технологии доступными, а связь — качественной и честной.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-slate-400 hover:text-white transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-white transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4">Навигация</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#features" class="hover:text-blue-400 transition">Преимущества</a></li>
+                    <li><a href="#tariffs" class="hover:text-blue-400 transition">Тарифы</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Покрытие сети</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Частые вопросы</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-bold mb-4">Контакты</h4>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> 8 (800) 123-45-67</li>
+                    <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> support@mobisim.ru</li>
+                    <li class="flex items-center gap-2 mt-4"><span class="text-xs text-slate-500">© 2026 МобиСим. Все права защищены.</span></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно оформления заказа -->
+    <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <!-- Затемнение фона -->
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeModal()"></div>
+        
+        <!-- Контент окна -->
+        <div id="modalContent" class="bg-white rounded-2xl shadow-2xl w-full max-w-md relative z-10 overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <!-- Заголовок -->
+            <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-slate-800">Оформление заявки</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-700 transition">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <!-- Тело (Форма) -->
+            <div class="p-6 overflow-y-auto">
+                
+                <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6 flex justify-between items-center">
+                    <div>
+                        <div class="text-xs text-blue-600 font-bold uppercase tracking-wider mb-1">Выбранный тариф</div>
+                        <div id="modalTariffName" class="text-xl font-bold text-slate-900">Оптима</div>
+                    </div>
+                    <div id="modalTariffPrice" class="text-xl font-extrabold text-blue-600">500 ₽</div>
+                </div>
+
+                <form id="checkoutForm" onsubmit="submitForm(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Ваше имя</label>
+                            <input type="text" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Иван Иванов">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Контактный телефон</label>
+                            <input type="tel" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="+7 (999) 000-00-00">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Адрес доставки</label>
+                            <textarea required rows="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="Город, улица, дом, квартира..."></textarea>
+                        </div>
+                        <div class="flex items-start gap-2 pt-2">
+                            <input type="checkbox" id="consent" required class="mt-1 w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                            <label for="consent" class="text-xs text-slate-500">
+                                Я согласен на обработку персональных данных и принимаю условия оказания услуг связи.
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-md transition flex justify-center items-center gap-2">
+                        <span>Подтвердить заказ</span>
+                        <i data-lucide="check-circle" class="w-5 h-5"></i>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Экран успеха (скрыт по умолчанию) -->
+            <div id="successScreen" class="absolute inset-0 bg-white z-20 hidden flex flex-col items-center justify-center p-8 text-center">
+                <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6">
+                    <i data-lucide="check" class="w-10 h-10"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">Заявка принята!</h3>
+                <p class="text-slate-600 mb-8">Спасибо за выбор МобиСим. Наш оператор свяжется с вами в течение 15 минут для подтверждения времени доставки.</p>
+                <button onclick="closeModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-3 px-8 rounded-full transition">
+                    Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно ИИ-помощника -->
+    <div id="aiModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeAiModal()"></div>
+        <div id="aiModalContent" class="bg-white rounded-2xl shadow-2xl w-full max-w-md relative z-10 overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-4 flex justify-between items-center text-white">
+                <h3 class="text-lg font-bold flex items-center gap-2">✨ Умный помощник</h3>
+                <button onclick="closeAiModal()" class="text-white/80 hover:text-white transition">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto">
+                <p class="text-sm text-slate-600 mb-4">Опишите, как вы обычно пользуетесь телефоном, и наш ИИ подберет лучший тариф из нашей линейки.</p>
+                <form id="aiForm" onsubmit="getAiRecommendation(event)">
+                    <textarea id="aiInput" required rows="3" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition mb-4 resize-none" placeholder="Например: Я часто смотрю видео, слушаю музыку онлайн, но почти не звоню обычным способом..."></textarea>
+                    <button type="submit" id="aiSubmitBtn" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl shadow-md transition flex justify-center items-center gap-2">
+                        <span>Подобрать ✨</span>
+                    </button>
+                </form>
+                
+                <div id="aiLoading" class="hidden flex flex-col items-center justify-center py-6">
+                    <div class="w-8 h-8 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin mb-4"></div>
+                    <p class="text-sm text-slate-500 animate-pulse">ИИ анализирует ваши потребности...</p>
+                </div>
+
+                <div id="aiResultContainer" class="hidden mt-6 bg-purple-50 border border-purple-100 rounded-xl p-5">
+                    <h4 class="font-bold text-slate-900 mb-2">Рекомендация:</h4>
+                    <p id="aiResultText" class="text-sm text-slate-700 leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Инициализация иконок и скрипты модального окна -->
+    <script>
+        // Инициализируем иконки Lucide
+        lucide.createIcons();
+
+        // --- Интеграция ИИ от Gemini API ---
+        const apiKey = ""; 
+        const aiModal = document.getElementById('aiModal');
+        const aiModalContent = document.getElementById('aiModalContent');
+        const aiForm = document.getElementById('aiForm');
+        const aiInput = document.getElementById('aiInput');
+        const aiLoading = document.getElementById('aiLoading');
+        const aiResultContainer = document.getElementById('aiResultContainer');
+        const aiResultText = document.getElementById('aiResultText');
+
+        function openAiModal() {
+            aiInput.value = '';
+            aiResultContainer.classList.add('hidden');
+            aiForm.style.display = 'block';
+            aiModal.classList.remove('hidden');
+            
+            aiModalContent.classList.remove('modal-exit-active', 'modal-exit');
+            aiModalContent.classList.add('modal-enter');
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    aiModalContent.classList.remove('modal-enter');
+                    aiModalContent.classList.add('modal-enter-active');
+                });
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAiModal() {
+            aiModalContent.classList.remove('modal-enter-active');
+            aiModalContent.classList.add('modal-exit-active');
+            setTimeout(() => {
+                aiModal.classList.add('hidden');
+                aiModalContent.classList.remove('modal-exit-active');
+                document.body.style.overflow = 'auto';
+            }, 200);
+        }
+
+        // Функция fetch с экспоненциальной задержкой (Exponential Backoff) для надежности API
+        async function fetchWithRetry(url, options, retries = 5) {
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                    await new Promise(res => setTimeout(res, delays[i]));
+                }
+            }
+        }
+
+        async function getAiRecommendation(event) {
+            event.preventDefault();
+            const userText = aiInput.value.trim();
+            if (!userText) return;
+
+            aiForm.style.display = 'none';
+            aiLoading.classList.remove('hidden');
+            aiResultContainer.classList.add('hidden');
+
+            const systemPrompt = `Ты - ИИ-консультант мобильного оператора "МобиСим". 
+            Твоя задача - помочь пользователю выбрать один из трех тарифов на основе его потребностей.
+            Тарифы:
+            1. Лайт (300 руб/мес): 10 ГБ, 300 минут, 50 SMS. Для тех, кто мало звонит и не часто сидит в интернете.
+            2. Оптима (500 руб/мес): 35 ГБ, 600 минут, безлимитные мессенджеры. Для большинства активных пользователей.
+            3. Ультра (950 руб/мес): безлимитный интернет, 1500 минут, подписка на кинотеатр. Для тех, кто постоянно онлайн и смотрит много видео.
+            
+            Проанализируй запрос. Назови рекомендуемый тариф (Лайт, Оптима или Ультра) и кратко (в 2-3 предложениях) объясни, почему он идеально подходит. Будь вежлив, используй эмодзи.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userText }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] }
+            };
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            try {
+                const data = await fetchWithRetry(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "Извините, не удалось сформировать рекомендацию. Попробуйте еще раз.";
+                aiResultText.innerText = textResponse;
+            } catch (error) {
+                console.error("API Error:", error);
+                aiResultText.innerText = "Произошла ошибка при подключении к ИИ. Пожалуйста, проверьте соединение и попробуйте позже.";
+            } finally {
+                aiLoading.classList.add('hidden');
+                aiResultContainer.classList.remove('hidden');
+                aiForm.style.display = 'block'; // Показываем форму снова, чтобы можно было изменить запрос
+            }
+        }
+
+        // Логика модального окна оформления заказа
+        const modal = document.getElementById('orderModal');
+        const modalContent = document.getElementById('modalContent');
+        const tariffNameEl = document.getElementById('modalTariffName');
+        const tariffPriceEl = document.getElementById('modalTariffPrice');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const successScreen = document.getElementById('successScreen');
+
+        function openModal(tariffName, price) {
+            // Обновляем данные в модалке
+            tariffNameEl.textContent = tariffName;
+            tariffPriceEl.textContent = price;
+            
+            // Сбрасываем форму и скрываем экран успеха
+            checkoutForm.reset();
+            successScreen.classList.add('hidden');
+            checkoutForm.style.display = 'block';
+
+            // Показываем окно
+            modal.classList.remove('hidden');
+            
+            // Анимация появления
+            modalContent.classList.remove('modal-exit-active', 'modal-exit');
+            modalContent.classList.add('modal-enter');
+            
+            // Маленький хак для триггера CSS анимации
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    modalContent.classList.remove('modal-enter');
+                    modalContent.classList.add('modal-enter-active');
+                });
+            });
+
+            // Блокируем скролл страницы
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            // Анимация закрытия
+            modalContent.classList.remove('modal-enter-active');
+            modalContent.classList.add('modal-exit-active');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalContent.classList.remove('modal-exit-active');
+                // Возвращаем скролл
+                document.body.style.overflow = 'auto';
+            }, 200); // 200ms должно совпадать с временем transition в CSS
+        }
+
+        function submitForm(event) {
+            event.preventDefault(); // Предотвращаем реальную отправку формы
+            
+            // Здесь мог бы быть код отправки данных на сервер (fetch/AJAX)
+            
+            // Показываем экран успешного заказа
+            checkoutForm.style.display = 'none';
+            successScreen.classList.remove('hidden');
+        }
+
+        // Закрытие модалок по клавише Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (!modal.classList.contains('hidden')) closeModal();
+                if (!aiModal.classList.contains('hidden')) closeAiModal();
+            }
+        });
+    </script>
+</body>
+</html>
